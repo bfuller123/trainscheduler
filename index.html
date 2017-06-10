@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+  <link rel="stylesheet" href="css/style.css">
+  <title>Aintrak</title>
+</head>
+
+<body>
+  <div class='container'>
+    <div class="row">
+      <header class='jumbotron col-xs-12'>
+        <h1>Aintrak</h1>
+        <h3>The way to really soar</h3>
+      </header>
+    </div>
+    <div class="row">
+      <table class='table table-striped table-bordered train-schedule-table'>
+        <thead>
+          <tr class='table-title'>
+            <th>Train Schedule</th>
+          </tr>
+          <tr class='data-titles'>
+            <th>Train Name</th>
+            <th>Destination</th>
+            <th>Next Arrival</th>
+            <th>Minutes Until</th>
+            <th>Frequency (mins)</th>
+          </tr>
+        </thead>
+        <tbody class='table-body' id='train-schedule'>
+        </tbody>
+      </table>
+    </div>
+
+    <br><br>
+
+    <form class="form" action="index.html" method="post">
+      <div class="form-group">
+        <label for="train-name">Train Name</label>
+        <br>
+        <input type="text" id="train-name" class='col-xs-12'>
+      </div>
+
+      <div class="form-group">
+        <label for="train-destination">Destination</label>
+        <br>
+        <input type="text" id="train-destination" class='col-xs-12'>
+      </div>
+
+      <div class="form-group">
+        <label for="train-start-time">First Train Time (HH:mm military time)</label>
+        <br>
+        <input type="text" id="train-start-time" class='col-xs-12'>
+      </div>
+
+      <div class="form-group">
+        <label for="train-frequency">Frequency (mins)</label>
+        <br>
+        <input type="text" id="train-frequency" class='col-xs-12'>
+      </div>
+      <br><br>
+      <button type="button" id="submit-button" class='btn btn-primary'>Submit</button>
+    </form>
+
+    <footer class='nav navbar-fixed-bottom'>Brett Fuller (c)</footer>
+
+  </div>
+</body>
+
+<script src="https://www.gstatic.com/firebasejs/4.1.2/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyDuVMhJRB4ZZdgShbmPXQj-br8_awXP6QE",
+    authDomain: "train-scheduler-727ad.firebaseapp.com",
+    databaseURL: "https://train-scheduler-727ad.firebaseio.com",
+    projectId: "train-scheduler-727ad",
+    storageBucket: "train-scheduler-727ad.appspot.com",
+    messagingSenderId: "164896993515"
+  };
+  firebase.initializeApp(config);
+</script>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
+<script src="scripts/main.js" charset="utf-8"></script>
+</html>
