@@ -2,8 +2,8 @@ var databaseRef = firebase.database().ref('trains');
 
 databaseRef.on('child_added', updateTrainSchedule);
 
-function pushEmployee(event) {
-  console.log('pushed employee!');
+function pushTrain(event) {
+  console.log('pushed train!');
   databaseRef.push({
     name: $('#train-name').val().trim(),
     destination: $('#train-destination').val().trim(),
@@ -14,15 +14,25 @@ function pushEmployee(event) {
   clearForm();
 }
 
+function addCurrentTime() {
+  var currentTime = moment().format('LT');
+  $('.time').text(currentTime);
+}
+
 function updateTrainSchedule(snapshot) {
+  databaseKeys.push(snapshot.val());
   var tableBody = $('#train-schedule');
   var newTableRow = $('<tr>');
-  //var nextTrainArrival = findNextArrival(snapshot.val().start_time);
-  newTableRow.append('<td>' + snapshot.val().name + '</td>');
+  var startTime = snapshot.val().start_time;
+  var frequency = snapshot.val().frequency;
+  var name = snapshot.val().name;
+  var minutesTillTrain = findMinutesUntilTrain(startTime, frequency);
+  var nextArrival = findNextArrival(minutesTillTrain);
+  newTableRow.append('<td>' + name + '</td>');
   newTableRow.append('<td>' + snapshot.val().destination + '</td>');
-  newTableRow.append('<td>' + '10:15' + '</td>'); //this will be replaced by the finding next arrival time
-  newTableRow.append('<td>' + 10 + '</td>'); //we will create a function to find minutes until next train
-  newTableRow.append('<td>' + snapshot.val().frequency + '</td>');
+  newTableRow.append('<td class="next-arrival" data-train-name="'+name+'">' + nextArrival + '</td>');
+  newTableRow.append('<td class="minutes-till" data-train-name="'+name+'">' + minutesTillTrain + '</td>');
+  newTableRow.append('<td>' + frequency + '</td>');
   tableBody.append(newTableRow);
 }
 
@@ -33,20 +43,18 @@ function clearForm() {
   $('#train-frequency').val("");
 }
 
-function findNextArrival(startDate) {
-  var dateAsArray = startDate.split('/');
-  var reformattedDate = dateAsArray[2]+dateAsArray[0]+dateAsArray[1];
-  console.log(reformattedDate);
-  var timeFromNow = moment(reformattedDate, 'YYYYMMDD').fromNow('MM');
-  if (timeFromNow.includes('years')) {
-    timeFromNow = timeFromNow.split(' ');
-    timeFromNow = timeFromNow[0] * 12;
-  }
-  else if (timeFromNow.includes('months')) {
-    timeFromNow = timeFromNow.split(' ');
-    timeFromNow = timeFromNow[0];
-  }
-  return timeFromNow;
+function findMinutesUntilTrain(startTime, frequency) {
+  var currentTime = moment();
+  startTime = moment(startTime, 'hh:mm').subtract(1, 'years');
+  var diffInTimes = currentTime.diff(moment(startTime), 'minutes');
+  var minutesTillTrain = frequency - (diffInTimes % frequency);
+  return minutesTillTrain;
 }
 
-$('#submit-button').on('click', pushEmployee);
+function findNextArrival(minutes) {
+  var nextTrainArrival = moment().add(minutes, 'minutes');
+  return nextTrainArrival.format('LT');
+}
+
+$('#submit-button').on('click', pushTrain);
+setInterval(addCurrentTime, 1000);

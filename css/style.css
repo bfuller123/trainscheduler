@@ -3,6 +3,18 @@
   width: 100%;
 }
 
+.brand {
+  float: left;
+}
+
+.timeBox {
+  float: right;
+}
+
+.time {
+  font-size: 400%;
+}
+
 .table-title {
   background-color: #F8432C;
   color: white;
