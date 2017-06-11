@@ -72,22 +72,24 @@ function loginWithGoogle() {
 function signOut() {
   firebase.auth().signOut().then(function(){
     $('.form').attr('hidden');
-    $('#logout').attr('id', 'login');
+    $('#logout').attr('hidden');
+    $('#login').removeAttr('hidden');
   });
 }
 
 firebase.auth().onAuthStateChanged(function(user){
   if(user){
     $('.form').removeAttr('hidden');
-    $('#login').text('Logout');
-    $('#login').attr('id', 'logout');
+    $('#login').attr('hidden');
+    $('#logout').removeAttr('hidden');
     console.log('success!');
   }
   else{
-    $('.form').attr('hidden', 'true');
+    $('.form').attr('hidden');
   }
 });
 
 $('#submit-button').on('click', pushTrain);
 $('#login').on('click', loginWithGoogle);
+$('#logout').on('click', signOut);
 setInterval(addCurrentTime, 1000);
