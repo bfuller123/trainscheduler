@@ -71,21 +71,22 @@ function loginWithGoogle() {
 
 function signOut() {
   firebase.auth().signOut().then(function(){
-    $('.form').attr('hidden');
-    $('#logout').attr('hidden');
-    $('#login').removeAttr('hidden');
+    console.log('signout successful');
+    $('.form').css('display', 'none');
+    $('#logout').css('display', 'none');
+    $('#login').css('display', 'block');
   });
 }
 
 firebase.auth().onAuthStateChanged(function(user){
   if(user){
-    $('.form').removeAttr('hidden');
-    $('#login').attr('hidden');
-    $('#logout').removeAttr('hidden');
+    $('.form').css('display', 'block');
+    $('#login').css('display', 'none');
+    $('#logout').css('display', 'block');
     console.log('success!');
   }
   else{
-    $('.form').attr('hidden');
+    $('.form').attr('hidden', 'true');
   }
 });
 
