@@ -60,7 +60,6 @@ function loginWithGoogle() {
   firebase.auth().signInWithPopup(provider).then(function(result){
     var token = result.credential.accessToken;
     var user = result.user;
-    $('.form').attr('hidden', 'false');
   }).catch(function(error) {
     var errorCode = error.code;
     var errorMessage = error.message;
@@ -69,6 +68,16 @@ function loginWithGoogle() {
     $('.errorMessage').text(errorMessage);
   });
 }
+
+firebase.auth().onAuthStateChange(function(user){
+  if(user){
+    $('.form').attr('hidden', 'false');
+    console.log('success!');
+  }
+  else{
+    $('.form').attr('hidden', 'true');
+  }
+});
 
 $('#submit-button').on('click', pushTrain);
 $('#login').on('click', loginWithGoogle);
