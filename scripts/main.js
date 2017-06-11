@@ -85,9 +85,6 @@ firebase.auth().onAuthStateChanged(function(user){
     $('#logout').css('display', 'block');
     console.log('success!');
   }
-  else{
-    $('.form').attr('hidden', 'true');
-  }
 });
 
 $('#submit-button').on('click', pushTrain);
