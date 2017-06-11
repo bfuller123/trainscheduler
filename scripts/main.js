@@ -1,4 +1,5 @@
 var databaseRef = firebase.database().ref('trains');
+var provider = new firebase.auth.GoogleAuthProvider();
 
 databaseRef.on('child_added', updateTrainSchedule);
 
@@ -20,7 +21,6 @@ function addCurrentTime() {
 }
 
 function updateTrainSchedule(snapshot) {
-  databaseKeys.push(snapshot.val());
   var tableBody = $('#train-schedule');
   var newTableRow = $('<tr>');
   var startTime = snapshot.val().start_time;
@@ -56,5 +56,20 @@ function findNextArrival(minutes) {
   return nextTrainArrival.format('LT');
 }
 
+function loginWithGoogle() {
+  firebase.auth().signInWithPopup(provider).then(function(result){
+    var token = result.credential.accessToken;
+    var user = result.user;
+    $('.form').attr('hidden', 'false');
+  }).catch(function(error) {
+    var errorCode = error.code;
+    var errorMessage = error.message;
+    var email = error.email;
+    var credential = error.credential;
+    $('.errorMessage').text(errorMessage);
+  });
+}
+
 $('#submit-button').on('click', pushTrain);
+$('#login').on('click', loginWithGoogle);
 setInterval(addCurrentTime, 1000);
