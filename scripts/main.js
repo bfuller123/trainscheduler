@@ -71,7 +71,7 @@ function loginWithGoogle() {
 
 firebase.auth().onAuthStateChanged(function(user){
   if(user){
-    $('.form').attr('hidden', 'false');
+    $('.form').removeAttr('hidden');
     console.log('success!');
   }
   else{
