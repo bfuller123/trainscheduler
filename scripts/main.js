@@ -69,7 +69,7 @@ function loginWithGoogle() {
   });
 }
 
-firebase.auth().onAuthStateChange(function(user){
+firebase.auth().onAuthStateChanged(function(user){
   if(user){
     $('.form').attr('hidden', 'false');
     console.log('success!');
