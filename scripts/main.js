@@ -69,9 +69,18 @@ function loginWithGoogle() {
   });
 }
 
+function signOut() {
+  firebase.auth().signOut().then(function(){
+    $('.form').attr('hidden');
+    $('#logout').attr('id', 'login');
+  });
+}
+
 firebase.auth().onAuthStateChanged(function(user){
   if(user){
     $('.form').removeAttr('hidden');
+    $('#login').text('Logout');
+    $('#login').attr('id', 'logout');
     console.log('success!');
   }
   else{
