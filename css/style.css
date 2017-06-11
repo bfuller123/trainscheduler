@@ -1,10 +1,22 @@
 .jumbotron {
   padding: 10px;
   width: 100%;
+  background-color: #3E4651;
+  color: #ECF0F1;
+  border-radius: 0 !important;
 }
 
 .brand {
   float: left;
+}
+
+.brand h1 {
+  font-family: 'Lobster Two', Arial;
+}
+
+.brand h4 {
+  color: #F7BC05 !important;
+  font-family: Helvetica, Arial;
 }
 
 .timeBox {
@@ -24,18 +36,30 @@
 }
 
 .table-title {
-  background-color: #F8432C;
+  background-color: #34495E;
   color: white;
   width: 100%;
 }
 
-.form {
-  display: none;
+caption {
+  padding: 0;
 }
 
-footer {
-  background-color: lightgray;
-  font-weight: bolder;
-  text-align: center;
-  padding: 1%;
+.form {
+  display: block;
+  border: 1px solid #34495E;
+}
+
+.panel-heading {
+  background-color: #34495E;
+  color: white;
+}
+
+h3 {
+  margin-left: 1%;
+}
+
+.btn {
+  background-color: #27AE60;
+  color: white;
 }
